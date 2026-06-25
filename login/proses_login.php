@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (mysqli_num_rows($result) > 0) {
             $row = mysqli_fetch_assoc($result);
+            
             $_SESSION['username'] = $row['username'];
             $_SESSION['status']   = "login";
             
@@ -29,7 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<script>alert('Login gagal. Periksa kembali username dan password Anda.'); window.location.href = '../login.php';</script>";
             exit();
         }
-        
+    } else {
+        echo "<script>alert('Terjadi kesalahan pada sistem database server.'); window.location.href = '../login.php';</script>";
+        exit();
     }
 } else {
     header("Location: ../login.php");
