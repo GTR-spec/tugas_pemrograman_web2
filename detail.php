@@ -44,7 +44,7 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
                             <p class="card-text mb-2"><strong>Tanggal Pembelian:</strong> <?php echo date('d-m-Y', strtotime($row['tgl_pembelian'])); ?></p>
                             <p class="card-text mb-3"><strong>Keterangan:</strong> <?php echo nl2br(htmlspecialchars($row['keterangan'])); ?></p>
                             
-                            <a href="inventaris.php" class="btn btn-secondary w-100">Kembali</a>
+                            <a href="index.php" class="btn btn-secondary w-100">Kembali</a>
                         </div>    
                     </div>
                 
@@ -53,7 +53,7 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
                         <h4 class="alert-heading">Data Tidak Ditemukan!</h4>
                         <p>Nomor inventaris tidak valid atau aset telah dihapus dari sistem.</p>
                         <hr>
-                        <a href="inventaris.php" class="btn btn-danger btn-sm">Kembali ke Daftar Inventaris</a>
+                        <a href="index.php" class="btn btn-danger btn-sm">Kembali ke Daftar Index</a>
                     </div>
                 <?php endif; ?>
 
