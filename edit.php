@@ -4,7 +4,6 @@ include 'koneksi.php';
 
 $row = null;
 
-// 1. PROSES GET DATA: Ambil data lama untuk ditampilkan di form secara aman
 if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
     $nomor_inventaris = $_GET['id'];
     
@@ -33,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $divisi           = $_POST['divisi'];
     $keterangan           = trim($_POST['keterangan']);
 
-    // Cek apakah pengguna mengunggah foto baru
     if (!empty($_FILES['foto']['name'])) {
         $foto = $_FILES['foto']['name'];
         $tmp  = $_FILES['foto']['tmp_name'];
@@ -42,16 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $allowed_extensions = array("jpg", "jpeg", "png", "webp");
 
         if (in_array($ext, $allowed_extensions)) {
-            // Berikan nama unik untuk file baru
             $foto_baru = uniqid('INV-', true) . '.' . $ext;
             
             if (move_uploaded_file($tmp, 'uploads/' . $foto_baru)) {
-                // Hapus foto lama dari server jika file lamanya ada (opsional tapi disarankan agar folder tidak penuh)
                 if (!empty($row['gambar']) && file_exists('uploads/' . $row['gambar'])) {
                     unlink('uploads/' . $row['gambar']);
                 }
 
-                // Query update dengan gambar baru
                 $query_update = "UPDATE tb_inventori SET nama_barang=?, kondisi_barang=?, tgl_pembelian=?, divisi=?, keterangan=?, gambar=? WHERE nomor_inventaris=?";
                 $stmt_update  = mysqli_prepare($koneksi, $query_update);
                 
@@ -69,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $execute = false;
         }
     } else {
-        // Query update tanpa mengubah gambar lama
         $query_update = "UPDATE tb_inventori SET nama_barang=?, kondisi_barang=?, tgl_pembelian=?, divisi=?, keterangan=? WHERE nomor_inventaris=?";
         $stmt_update  = mysqli_prepare($koneksi, $query_update);
         
@@ -80,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Evaluasi hasil eksekusi query update
     if (isset($execute) && $execute) {
         echo "<script>alert('Data berhasil diubah'); window.location.href='inventaris.php';</script>";
     } elseif (isset($execute)) {
