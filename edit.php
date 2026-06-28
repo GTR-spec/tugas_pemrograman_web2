@@ -20,15 +20,13 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
     }
 }
 
-// Jika data yang mau diedit tidak ditemukan, kembalikan ke halaman utama
 if (!$row) {
     echo "<script>alert('Data tidak ditemukan!'); window.location.href='inventaris.php';</script>";
     exit();
 }
 
-// 2. PROSES POST DATA: Jalankan aksi perbaruan ketika form disubmit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nomor_inventaris = $_POST['nomor_inventaris']; // Primary key / penentu
+    $nomor_inventaris = $_POST['nomor_inventaris'];
     $nama_barang      = trim($_POST['nama_barang']);
     $kondisi_barang   = $_POST['kondisi_barang'];
     $tgl_pembelian    = $_POST['tgl_pembelian'];
